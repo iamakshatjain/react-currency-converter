@@ -8,10 +8,15 @@ import React from 'react';
 class Input extends React.Component{
 
 	state = {
-				amount:0,
-				curr1:'',
-				curr2:''
+				amount:1,
+				curr1:'INR',
+				curr2:'USD'
 			};
+
+	componentDidMount(){
+		console.log(this.state);
+		this.props.onFormSubmit(this.state);
+	}
 
 	renderCountryList(){
 		var countries = {
@@ -789,7 +794,7 @@ class Input extends React.Component{
 		countries = Object.values(countries);
 		var dropdown = countries.map(country => {
 			return (
-					<option className="item" value={country.id} data-value={country.id} key={country.id}>{country.currencyName}</option>
+					<option value={country.id} key={country.id}>{country.currencyName}</option>
 				);
 		});
 
@@ -806,32 +811,33 @@ class Input extends React.Component{
 		event.preventDefault();
 		console.log("Current State : ",this.state);
 		console.log("Form Submitted");
+		this.props.onFormSubmit(this.state);
 	}
 
 	render(){
 		return(
 			<form id="input-segment" onSubmit={this.onFormSubmit}>
-				<div className="ui input fluid">
+				<div className="ui input">
 					<input type="number" placeholder="Amount" name="amount" onChange={this.onInputChange} />
 				</div>
 				<br/>
 				<div>
-					<label forhtml="dropdown">Currency 1 : </label>
+					<label forhtml="dropdown">From : </label>
 					<br/>
-					<select id='dropdown' name="curr1" onChange={this.onInputChange}>
+					<select id='dropdown' className="ui dropdown" name="curr1" onChange={this.onInputChange}>
 						{this.renderCountryList()}
 					</select>
 				</div>
 				<br/>
 				<div>
-					<label forhtml="dropdown">Currency 2 : </label>
+					<label forhtml="dropdown">To : </label>
 					<br/>
-					<select id='dropdown' name="curr2" onChange={this.onInputChange}>
+					<select id='dropdown' className="ui dropdown" name="curr2" onChange={this.onInputChange}>
 						{this.renderCountryList()}
 					</select>
 				</div>
 				<br/>
-				<button className="ui button">
+				<button className="ui primary button">
 					Convert
 				</button>
 			</form>
