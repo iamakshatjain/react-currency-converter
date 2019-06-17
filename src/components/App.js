@@ -24,10 +24,10 @@ class App extends React.Component{
 	render(){
 		return (
 			<div className ="ui container">
-				<div className="ui segment" style={{margin:'10px', marginTop:'50px', width:'500px'}}>
+				<div className="ui segment" style={{margin:'10px', marginTop:'25vh', width:'70vw'}}>
 					<Output data={this.state}/>
 				</div>
-				<div className="ui segment" style={{margin:'10px', width:'500px'}}>
+				<div className="ui segment" style={{margin:'10px', width:'70vw'}}>
 					<Input onFormSubmit={this.onFormSubmit}/>
 				</div>
 			</div>

@@ -14,7 +14,7 @@ class Input extends React.Component{
 			};
 
 	componentDidMount(){
-		console.log(this.state);
+		// console.log(this.state);
 		this.props.onFormSubmit(this.state);
 	}
 
@@ -804,27 +804,32 @@ class Input extends React.Component{
 	onInputChange = (event) =>{
 		let state = {};
 		state[event.target.name] = event.target.value;
-		this.setState(state);
+		this.setState(state,()=>{
+			console.log(this.state);
+			this.props.onFormSubmit(this.state);
+		});
+		
+		
 	}
 
 	onFormSubmit = (event) => {
 		event.preventDefault();
 		console.log("Current State : ",this.state);
 		console.log("Form Submitted");
-		this.props.onFormSubmit(this.state);
+		
 	}
 
 	render(){
 		return(
 			<form id="input-segment" onSubmit={this.onFormSubmit}>
 				<div className="ui input">
-					<input type="number" placeholder="Amount" name="amount" onChange={this.onInputChange} />
+					<input type="number" placeholder="Amount" name="amount" onChange={this.onInputChange} value={this.state.amount}/>
 				</div>
 				<br/>
 				<div>
 					<label forhtml="dropdown">From : </label>
 					<br/>
-					<select id='dropdown' className="ui dropdown" name="curr1" onChange={this.onInputChange}>
+					<select id='dropdown' className="ui fluid dropdown" name="curr1" onChange={this.onInputChange} value={this.state.curr1}>
 						{this.renderCountryList()}
 					</select>
 				</div>
@@ -832,18 +837,20 @@ class Input extends React.Component{
 				<div>
 					<label forhtml="dropdown">To : </label>
 					<br/>
-					<select id='dropdown' className="ui dropdown" name="curr2" onChange={this.onInputChange}>
+					<select id='dropdown' className="ui fluid dropdown" name="curr2" onChange={this.onInputChange} value={this.state.curr2}>
 						{this.renderCountryList()}
 					</select>
 				</div>
 				<br/>
-				<button className="ui primary button">
-					Convert
-				</button>
+
 			</form>
 
 			);
 	}
 }
+
+				// <button className="ui primary button">
+				// 	Convert
+				// </button>
 
 export default Input;
